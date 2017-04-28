@@ -1,12 +1,12 @@
-class Greeter {
-  constructor(public name: string) { }
-  greet() {
-    return `Hello world ${this.name}!!`;
-  }
-  hugeGreet() {
-    return `HELLO WORLD, ${this.name}!!!!!`;
-  }
-};
+import * as express from 'express';
 
-const greeter = new Greeter("Vincent");
-console.log(greeter.hugeGreet());
+import { PirateController } from './apps/pirate/controller';
+
+const app: express.Application = express();
+const port: number = 3000;
+
+app.use('/pirate', PirateController);
+
+app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}/`);
+});
