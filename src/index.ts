@@ -4,34 +4,19 @@ import * as socketIO from "socket.io";
 
 import { Message } from './domain/message';
 
-class Server {
+function run(port: number = 3000): void {
+  let server: http.Server = http.createServer();
+  let io: any = socketIO(server);
 
-  public app: express.Express;
+  server.listen(port, () => {
+    console.log('Listening port %s', port);
+  });
 
-  private server: http.Server;
-  private io: any;
-
-  constructor(port: number = 3000) {
-    this.app = express();
-    this.server = http.createServer(this.app);
-    this.io = socketIO(this.server);
-
-    this.init(port);
-  }
-
-  private init(port: number): void {
-    this.server.listen(port, () => {
-      console.log('Listening port %s', port);
+  io.on('connect', (socket: any) => {
+    socket.on('message', (message: Message) => {
+      io.emit('message', JSON.stringify(message));
     });
-
-    this.io.on('connect', (socket: any) => {
-      socket.on('message', (message: Message) => {
-        this.io.emit('message', JSON.stringify(message));
-      });
-    });
-  }
-  
+  });
 }
 
-const server = new Server();
-export default server.app;
+run(3000);
