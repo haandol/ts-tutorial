@@ -1,5 +1,4 @@
 import * as http from "http";
-import * as express from "express";
 import * as socketIO from "socket.io";
 
 import { Message } from './domain/message';
