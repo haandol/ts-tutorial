@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^4.9.6",
+    "mongoose": "^5.10.8",
     "typescript": "^2.3.2"
   },
   "devDependencies": {
